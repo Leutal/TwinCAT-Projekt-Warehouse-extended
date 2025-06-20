@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.16" ClassName="CNestedPlcProjDef">
+	<Project GUID="{BD2C650C-6141-4191-8C6F-B5D245BF6D82}" Name="Warehouse_Extended" PrjFilePath="..\..\Warehouse_Extended\Warehouse_Extended.plcproj" TmcFilePath="..\..\Warehouse_Extended\Warehouse_Extended.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+		<Instance File="Warehouse_Extended Instance.xti"/>
+	</Project>
+</TcSmItem>

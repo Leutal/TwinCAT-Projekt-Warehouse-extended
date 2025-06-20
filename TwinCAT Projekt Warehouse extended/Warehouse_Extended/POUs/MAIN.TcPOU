@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MAIN" Id="{e546e549-195b-4752-93fe-7db8bdeed384}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	iProductNumber:			INT;			//Eingabe der ein- oder auszulagernder Produktenummer
+	bStartStore: 			BOOL;			//Taster um Einlagerung zu starten
+	bStartRemove:			BOOL;			//Taster um Auslagerung zu starten
+	bLastCLKStartStore:		BOOL;			//Zwischenspeicher des letzten Zustandes von StartStore für Flankenerkennung
+	bLastCLKStartRemove: 	BOOL;			//Zwischenspeicher des letzten Zustandes von StartRemove für Flankenerkennung
+	Warehouse:				FB_WarehouseStock;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[{region "store"}
+IF bStartStore AND NOT bLastCLKStartStore THEN
+	Warehouse.M_Store(iProdNumber := iProductNumber);
+END_IF
+{endregion}
+
+{region "remove"}
+IF bStartRemove AND NOT bLastCLKStartRemove THEN
+	Warehouse.M_Remove(iProdNumber := iProductNumber);
+END_IF
+{endregion}
+
+bLastCLKStartStore 		:= bStartStore;
+bLastCLKStartRemove 	:= bStartRemove;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

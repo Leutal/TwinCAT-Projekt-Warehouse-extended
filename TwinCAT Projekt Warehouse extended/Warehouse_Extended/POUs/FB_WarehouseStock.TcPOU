@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_WarehouseStock" Id="{56887546-03b8-4afb-80a3-121d889fc915}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_WarehouseStock
+VAR_INPUT	
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	iXAxis:			INT;
+	iYAxis:			INT;
+	bStored:			BOOL;
+	bRemoved:			BOOL;
+	arrStockPosition:	ARRAY[1..7, 1..12] OF INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="M_Remove" Id="{0b9093b9-5d80-4a28-b602-596c4f7fc0e5}">
+      <Declaration><![CDATA[METHOD M_Remove : BOOL
+VAR_INPUT
+	iProdNumber: 		INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bRemoved := FALSE;
+
+IF iProdNumber = 0 THEN
+	RETURN;
+END_IF
+
+FOR iXAxis := 1 TO 7 BY 1 DO
+	FOR iYAxis :=  1 TO 12 BY 1 DO
+		IF arrStockPosition[iXAxis, iYAxis] = iProdNumber THEN
+			arrStockPosition[iXAxis, iYAxis] := 0;
+			bRemoved := TRUE;
+			EXIT;
+		END_IF
+		IF bRemoved = TRUE THEN
+			RETURN;
+		END_IF
+	END_FOR
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Store" Id="{e43b1871-eb52-4cea-be35-e1eae7e91536}">
+      <Declaration><![CDATA[METHOD M_Store : BOOL
+VAR_INPUT
+	iProdNumber: 		INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bStored := FALSE;
+
+IF iProdNumber = 0 THEN
+	RETURN;
+END_IF
+
+FOR iXAxis := 1 TO 7 BY 1 DO
+	FOR iYAxis :=  1 TO 12 BY 1 DO
+		IF arrStockPosition[iXAxis, iYAxis] = 0 THEN
+			arrStockPosition[iXAxis, iYAxis] := iProdNumber;
+			bStored := TRUE;
+			EXIT;
+		END_IF
+		IF bStored = TRUE THEN
+			RETURN;
+		END_IF
+	END_FOR
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
