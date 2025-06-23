@@ -7,8 +7,8 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	iXAxis:			INT;
-	iYAxis:			INT;
+	iXAxis:				INT;
+	iYAxis:				INT;
 	bStored:			BOOL;
 	bRemoved:			BOOL;
 	arrStockPosition:	ARRAY[1..7, 1..12] OF INT;
@@ -18,7 +18,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="M_Remove" Id="{0b9093b9-5d80-4a28-b602-596c4f7fc0e5}">
-      <Declaration><![CDATA[METHOD M_Remove : BOOL
+      <Declaration><![CDATA[METHOD M_Remove: 		BOOL
 VAR_INPUT
 	iProdNumber: 		INT;
 END_VAR
@@ -45,7 +45,7 @@ END_FOR]]></ST>
       </Implementation>
     </Method>
     <Method Name="M_Store" Id="{e43b1871-eb52-4cea-be35-e1eae7e91536}">
-      <Declaration><![CDATA[METHOD M_Store : BOOL
+      <Declaration><![CDATA[METHOD M_Store: 		BOOL
 VAR_INPUT
 	iProdNumber: 		INT;
 END_VAR
