@@ -12,6 +12,10 @@ VAR
 	bStored:			BOOL;
 	bRemoved:			BOOL;
 	arrStockPosition:	ARRAY[1..7, 1..12] OF INT;
+	rMaxVal: 			REAL;
+	rMinVal:			REAL;
+	rMedVal:			REAL;
+	rSum:				REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -44,6 +48,27 @@ FOR iXAxis := 1 TO 7 BY 1 DO
 END_FOR]]></ST>
       </Implementation>
     </Method>
+    <Method Name="M_Stats" Id="{8e8ac229-7d41-4b35-9101-a43ce4d54c3b}">
+      <Declaration><![CDATA[METHOD M_Stats : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iXAxis := 1 TO 7 BY 1 DO
+	FOR iYAxis :=  1 TO 12 BY 1 DO
+		IF arrStockPosition[iXAxis, iYAxis] > 0 OR arrStockPosition[iXAxis, iYAxis] > rMaxVal THEN
+			rMaxVal := arrStockPosition[iXAxis, iYAxis];
+		END_IF
+		IF arrStockPosition[iXAxis, iYAxis] < 3.402823E+38 OR arrStockPosition[iXAxis, iYAxis] < rMinVal THEN
+			rMaxVal := arrStockPosition[iXAxis, iYAxis];
+		END_IF
+		rSum := 0 + arrStockPosition[iXAxis, iYAxis];
+	END_FOR
+END_FOR
+rMedVal := rMedVal / (7*12);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="M_Store" Id="{e43b1871-eb52-4cea-be35-e1eae7e91536}">
       <Declaration><![CDATA[METHOD M_Store: 		BOOL
 VAR_INPUT
@@ -64,11 +89,12 @@ FOR iXAxis := 1 TO 7 BY 1 DO
 			bStored := TRUE;
 			EXIT;
 		END_IF
-		IF bStored = TRUE THEN
-			RETURN;
-		END_IF
 	END_FOR
-END_FOR]]></ST>
+	IF bStored = TRUE THEN
+		RETURN;
+		END_IF
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
   </POU>

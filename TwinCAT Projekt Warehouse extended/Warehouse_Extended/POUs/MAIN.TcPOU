@@ -9,6 +9,9 @@ VAR
 	bLastCLKStartStore:		BOOL;			//Zwischenspeicher des letzten Zustandes von StartStore für Flankenerkennung
 	bLastCLKStartRemove: 	BOOL;			//Zwischenspeicher des letzten Zustandes von StartRemove für Flankenerkennung
 	Warehouse:				FB_WarehouseStock;
+	rMaxValue: 				REAL;
+	rMinValue:				REAL;
+	rMedValue:				REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -24,6 +27,12 @@ IF bStartRemove AND NOT bLastCLKStartRemove THEN
 END_IF
 {endregion}
 
+// {region "Stats"}
+// Warehouse.M_Stats();
+// rMaxValue:= Warehouse.rMaxVal;
+// rMinValue:= Warehouse.rMinVal;
+// rMedValue:= Warehouse.rMedVal;		
+// {endregion}
 bLastCLKStartStore 		:= bStartStore;
 bLastCLKStartRemove 	:= bStartRemove;]]></ST>
     </Implementation>
